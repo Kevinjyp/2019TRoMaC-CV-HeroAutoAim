@@ -16,7 +16,14 @@ ADD_EXECUTABLE(main /home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/main/main.cp
 /home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/uart/serial.cpp
 /home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/uart/serial.hpp
 /home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/tools/MathTools.cpp
-/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/tools/MathTools.h)
+/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/tools/MathTools.h
+/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/predictor/Predictor.cpp
+/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/predictor/Predictor.h
+/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/predictor/KalmanFilter.cpp
+/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/predictor/KalmanFilter.h
+/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/decision/Decision.cpp
+/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/decision/Decision.h
+        )
 target_link_libraries(main ${OpenCV_LIBS})
 find_package(Threads)
 target_link_libraries(main ${CMAKE_THREAD_LIBS_INIT})

@@ -1,8 +1,8 @@
 #include "ThreadControl.h"
 
-string cameraMatrixFileName("/home/tromac/program/hero1907/camera/intrinsics.yml");
-string smallArmorModelFileName("/home/tromac/program/hero1907/detector/classifier.xml");
-string bigArmorModelFileName("/home/tromac/program/hero1907/detector/big_armor.xml");
+string cameraMatrixFileName("/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/camera/intrinsics.yml");
+string smallArmorModelFileName("/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/detector/classification.xml");
+string bigArmorModelFileName("/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/detector/big_armor.xml");
 
 #define picWidth 640
 #define picHeight 640
@@ -130,7 +130,7 @@ void processer::ArmorDetectorThreadLoop(){
 				armorDetector.drawArmors(frame, armor);
 			}
 			else if (timestamp - lastFindTimestamp < 0.3 && timestamp - lastFindTimestamp > 0) {
-				Serial.Send(targetValue.x, (short)targetValue.y, (float)timestamp, false, false);
+				Serial.send(targetValue.x, (short)targetValue.y, (float)timestamp, false, false);
 			}
 			else {
 				if(!Serial.SendMiss()){

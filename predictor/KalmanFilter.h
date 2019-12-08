@@ -1,7 +1,7 @@
 #pragma once
 
 #include "opencv2/opencv.hpp"
-#include "Eigen/Dense"
+#include "../Eigen/Dense"
 
 namespace EigenKalman{
 	class KalmanFilter
