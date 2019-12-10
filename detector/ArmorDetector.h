@@ -30,7 +30,7 @@
 
 using namespace std;
 
-#define debug
+//#define debug
 #define USE_ID
 
 class Lamp {

@@ -88,27 +88,42 @@ void processer::InfoReadThreadLoop() {
 }
 
 void processer::ArmorDetectorThreadLoop(){
-	while (!InitUartAccomplish);//等待串口初始化
+//	while (!InitUartAccomplish);//等待串口初始化
 	/*初始化装甲识别*/
 	ArmorDetector armorDetector(picHeight, picWidth);
 	armorDetector.loadClassifier(smallArmorModelFileName, bigArmorModelFileName);
 	/*初始化摄像头*/
-	cam.open();
-	cam.loadMatrix(cameraMatrixFileName);
+//	cam.open();
+//	cam.loadMatrix(cameraMatrixFileName);
+    // get frame from video
+    VideoCapture capture("/home/kevinjyp/Desktop/Parallels Shared Folders/Home/Desktop/1.avi");;
+//    VideoCapture capture(0);
+    cv::Mat frame;
+    if(!capture.isOpened())
+    {
+        printf("can not open ...\n");
+        return;
+    }
 
 	double lastFindTimestamp = 0;
 
-	cv::Mat frame;//固定取图的地址
+//	cv::Mat frame;//固定取图的地址
 	double timestamp = 0;
 
 	pair<Point2f,bool> predictValue;
 	Point2f targetValue;
 
+	int frame_num = 0;
 	while (true) {
-		if (cam.getFrame(frame)) {
-			timestamp = (cv::getTickCount() - startTime) / cv::getTickFrequency() - 0.004;//获取图片的时间戳
+        capture >> frame;
+//        if (cam.getFrame(frame)) {
+        if (!frame.empty()) { //own
+            printf("%d\n", ++frame_num);
+            imwrite("frame.png", frame);
+            imshow("frame", frame);
+            timestamp = (cv::getTickCount() - startTime) / cv::getTickFrequency() - 0.004;//获取图片的时间戳
 			Armor armor;
-			if (armorDetector.getArmor2(frame, armor, 200, 100, ArmorDetector::RED, 0)) {
+			if (armorDetector.getArmor2(frame, armor, 0, 100, ArmorDetector::RED, 0)) {
 			//if (armorDetector.getArmor2(frame, armor, 200, 100, ArmorDetector::BLUE, 0)) {
 				tuple <cv::Mat, int, bool> modeState = decision.make();
 
@@ -145,5 +160,8 @@ void processer::ArmorDetectorThreadLoop(){
 				break;
 			}
 		}
+        else{
+            break; // own
+        }
 	}
 }

@@ -29,6 +29,9 @@
 #include "../fusion/CoordinatesFusion.h"
 #include "../predictor/Predictor.h"
 #include "../decision/Decision.h"
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
 
 class processer{
 public:
