@@ -1,11 +1,11 @@
 #include "ThreadControl.h"
 
-string cameraMatrixFileName("/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/camera/intrinsics.yml");
-string smallArmorModelFileName("/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/detector/classification.xml");
-string bigArmorModelFileName("/home/kevinjyp/Github/2019TRoMaC-CV-HeroAutoAim/detector/big_armor.xml");
+string cameraMatrixFileName("../camera/intrinsics.yml");
+string smallArmorModelFileName("../detector/classification.xml");
+string bigArmorModelFileName("../detector/big_armor.xml");
 
-#define picWidth 640
-#define picHeight 640
+#define picWidth 1280
+#define picHeight 400
 
 atomic<bool> Exit(false);
 
@@ -118,9 +118,6 @@ void processer::ArmorDetectorThreadLoop(){
         capture >> frame;
 //        if (cam.getFrame(frame)) {
         if (!frame.empty()) { //own
-            printf("%d\n", ++frame_num);
-            imwrite("frame.png", frame);
-            imshow("frame", frame);
             timestamp = (cv::getTickCount() - startTime) / cv::getTickFrequency() - 0.004;//获取图片的时间戳
 			Armor armor;
 			if (armorDetector.getArmor2(frame, armor, 0, 100, ArmorDetector::RED, 0)) {
@@ -152,8 +149,8 @@ void processer::ArmorDetectorThreadLoop(){
 					Serial.restart();
 				}
 			}
-			circle(frame, cam.picCenter(), 10, Scalar(0, 255, 0));
-			cv::imshow("frame", frame);
+//			circle(frame, cam.picCenter(), 10, Scalar(0, 255, 0));
+            cv::imshow("frame", frame);
 			char key = waitKey(1);
 			if (key == 27) {
 				Exit = true;

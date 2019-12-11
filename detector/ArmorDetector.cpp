@@ -125,7 +125,7 @@ bool sortFittedLamp(pair<vector<Lamp>::iterator, float> a, pair<vector<Lamp>::it
 }
 
 int ArmorDetector::findLamps(cv::Mat & src, vector<Lamp> &possible_lamps, uchar bright_thr_value, uchar color_thr_value, Enemy enemy, int useblur){
-	if (bright_thr_value != 0) {
+    if (bright_thr_value != 0) {
 		cv::cvtColor(src, gray, CV_BGR2GRAY);
 		cv::threshold(gray, bright_thr, bright_thr_value, 255, cv::THRESH_BINARY);
 	}
@@ -134,7 +134,7 @@ int ArmorDetector::findLamps(cv::Mat & src, vector<Lamp> &possible_lamps, uchar 
 	uchar *ptr_dst = color_thr.data;
 	const uchar *ptr_dst_end = color_thr.data + total_pixel;
 	uchar b, r;
-	if (enemy == BLUE)
+    if (enemy == BLUE)
 		for (; ptr_dst != ptr_dst_end; ptr_src += 1, ptr_dst += 1) {
 			b = *ptr_src;
 			ptr_src += 2;
